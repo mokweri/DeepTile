@@ -9,6 +9,7 @@
 site_name: DeepTile
 site_description: Reusable INT8 CNN inference with fixed FPGA hardware and target-aware software.
 site_author: Obed M. Mogaka, Håkan Forsberg, Masoud Daneshtalab
+site_url: https://mokweri.github.io/DeepTile/
 repo_url: https://github.com/mokweri/DeepTile
 repo_name: mokweri/DeepTile
 edit_uri: edit/main/docs/

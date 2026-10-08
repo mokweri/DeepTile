@@ -1,11 +1,20 @@
 # Build the documentation site and publish it to GitHub Pages.
 #
-# Pull requests validate the documentation without publishing it. Deployment
-# is triggered manually.
+# Pull requests validate the documentation without publishing it. Pushes to
+# main that touch the documentation deploy it; it can also be run by hand.
 
 name: Documentation
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "src/**/*.h"
+      - "src/**/*.hpp"
+      - "mkdocs.yml"
+      - "scripts/Makefile"
+      - ".github/workflows/docs.yml"
   pull_request:
     paths:
       - "docs/**"
@@ -46,7 +55,7 @@ jobs:
           path: build/docs/site
 
   deploy:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.repository == 'mokweri/DeepTile' && github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:
