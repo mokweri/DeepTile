@@ -1,0 +1,268 @@
+{
+  "schema": "deeptile.graph.v1",
+  "model": {
+    "name": "pwdw_k5_block",
+    "producer": "gen_pwdw_testcase",
+    "producer_version": "0.1.0",
+    "source_framework": "synthetic"
+  },
+  "target": {
+    "bitwidth": 8,
+    "signed": true,
+    "activation_layout": "CHW",
+    "conv_weight_layout": "OIHW",
+    "linear_weight_layout": "OI",
+    "bias_dtype": "int8"
+  },
+  "graph": {
+    "inputs": [
+      "ifm"
+    ],
+    "outputs": [
+      "project_out"
+    ],
+    "references": {
+      "project_out": "project_out_ref"
+    }
+  },
+  "tensors": {
+    "ifm": {
+      "kind": "input",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        40,
+        14,
+        14
+      ],
+      "frac": 4,
+      "file": "inputs/ifm.int8.bin"
+    },
+    "expand_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        240,
+        40,
+        1,
+        1
+      ],
+      "frac": 6,
+      "file": "params/expand.weight.int8.bin"
+    },
+    "expand_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        240
+      ],
+      "frac": 4,
+      "file": "params/expand.bias.int8.bin"
+    },
+    "expand_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        240,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "dw_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        240,
+        1,
+        5,
+        5
+      ],
+      "frac": 6,
+      "file": "params/dw.weight.int8.bin"
+    },
+    "dw_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        240
+      ],
+      "frac": 4,
+      "file": "params/dw.bias.int8.bin"
+    },
+    "dw_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        240,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "project_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        40,
+        240,
+        1,
+        1
+      ],
+      "frac": 6,
+      "file": "params/project.weight.int8.bin"
+    },
+    "project_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        40
+      ],
+      "frac": 4,
+      "file": "params/project.bias.int8.bin"
+    },
+    "project_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        40,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "project_out_ref": {
+      "kind": "reference",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        40,
+        14,
+        14
+      ],
+      "frac": 4,
+      "file": "refs/out_ref.int8.bin"
+    }
+  },
+  "nodes": [
+    {
+      "id": "expand",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "ifm",
+        "weight": "expand_w",
+        "bias": "expand_b"
+      },
+      "outputs": {
+        "ofm": "expand_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "dw",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "expand_out",
+        "weight": "dw_w",
+        "bias": "dw_b"
+      },
+      "outputs": {
+        "ofm": "dw_out"
+      },
+      "attrs": {
+        "kernel": [
+          5,
+          5
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 240
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "project",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "dw_out",
+        "weight": "project_w",
+        "bias": "project_b",
+        "residual": "ifm"
+      },
+      "outputs": {
+        "ofm": "project_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": false
+      }
+    }
+  ]
+}

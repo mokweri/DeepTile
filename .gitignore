@@ -1,0 +1,65 @@
+# Ignore build directory
+/build/
+/build_*
+/bitstream*
+/tile_utility/build/
+/tile_utility/build_plan/
+
+# Ignore local HLS projects accidentally created beside scripts.
+scripts/hls/*_proj/
+# Legacy generated HLS projects from the old layout.
+vhls/*_proj/
+
+# Ignore logs
+*.log
+/logs/
+
+# Vitis & Vivado
+.Xil/
+*.xo
+*.xclbin
+*.compile_summary
+*_summary
+
+.vscode
+.cache
+_ide
+
+# Python bytecode caches
+__pycache__/
+*.py[cod]
+
+# Hardware system temp
+scripts/hw/.ipcache/
+# Legacy generated hardware temp from the old layout.
+system_hw/.ipcache/
+vpp_logs/
+vpp_temp/
+*.ini
+# Vitis creates this launch script when packaging a target. Other shell
+# scripts are source files and should remain visible to Git.
+run_app.sh
+
+
+# Quaro generated files
+/docs/*_files
+/docs/*.html
+
+
+# Latex outputs
+*.aux
+*.fls
+*.nav
+*.out
+*.snm
+*.toc
+*.fdb_latexmk
+*.gz
+
+data/imagenet/ilsvrc2012/
+
+# Generated C++ API reference (make -C scripts docs-api)
+/docs/reference/api/
+
+# Machine-specific hardware build paths
+scripts/hw/local.mk

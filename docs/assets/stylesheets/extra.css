@@ -1,0 +1,57 @@
+/* DeepTile brand palette, shared with the README figures and logos.
+   Blue and orange pass the colour-blind separation, lightness and contrast
+   checks against each theme's background. */
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #2A62A8;
+  --md-primary-fg-color--light: #5A94E0;
+  --md-primary-fg-color--dark: #1F4A80;
+  --md-accent-fg-color: #C2701A;
+  --md-typeset-a-color: #2A62A8;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #1F4A80;
+  --md-primary-fg-color--light: #5A94E0;
+  --md-primary-fg-color--dark: #16365E;
+  --md-accent-fg-color: #CF7B2B;
+  --md-typeset-a-color: #5A94E0;
+}
+
+/* Paper figures carry a white background; frame them so they read as
+   intentional panels in the dark theme. */
+.md-typeset img.paper-figure {
+  display: block;
+  margin: 1.4em auto;
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 0 0 1px var(--md-default-fg-color--lightest);
+}
+
+/* Author page: photo beside the name, stacking on narrow screens. */
+.author-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin: 1rem 0 2rem;
+}
+.md-typeset img.author-photo {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px var(--md-primary-fg-color--light);
+}
+.author-details { flex: 1; min-width: 16rem; }
+.md-typeset .author-details h2 { margin-top: 0; }
+.md-typeset .author-details .md-button {
+  margin: 0.3rem 0.4rem 0.3rem 0;
+  font-size: 0.7rem;
+  padding: 0.4em 1em;
+}
+[data-md-color-scheme="slate"] .md-typeset .author-details .md-button {
+  color: #5A94E0;
+  border-color: #5A94E0;
+}

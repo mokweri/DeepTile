@@ -1,0 +1,3 @@
+[submodule "FixQuant"]
+	path = FixQuant
+	url = https://github.com/mokweri/FixQuantTool.git

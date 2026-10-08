@@ -1,0 +1,5 @@
+# Documentation toolchain. Install into a virtual environment, for example
+#   make -C scripts docs-venv
+mkdocs==1.6.1
+mkdocs-material==9.5.49
+mkdocs-include-markdown-plugin==7.1.2

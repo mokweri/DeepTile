@@ -1,0 +1,196 @@
+{
+  "schema": "tilecnn.graph.v1",
+  "model": {
+    "name": "pwdw_ragged",
+    "producer": "gen_pwdw_testcase",
+    "producer_version": "0.1.0",
+    "source_framework": "synthetic"
+  },
+  "target": {
+    "bitwidth": 8,
+    "signed": true,
+    "activation_layout": "CHW",
+    "conv_weight_layout": "OIHW",
+    "linear_weight_layout": "OI",
+    "bias_dtype": "int8"
+  },
+  "graph": {
+    "inputs": [
+      "ifm"
+    ],
+    "outputs": [
+      "dw_out"
+    ],
+    "references": {
+      "dw_out": "dw_out_ref"
+    }
+  },
+  "tensors": {
+    "ifm": {
+      "kind": "input",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        24,
+        16,
+        16
+      ],
+      "frac": 4,
+      "file": "inputs/ifm.int8.bin"
+    },
+    "pw_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        24,
+        24,
+        1,
+        1
+      ],
+      "frac": 6,
+      "file": "params/pw.weight.int8.bin"
+    },
+    "pw_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        24
+      ],
+      "frac": 4,
+      "file": "params/pw.bias.int8.bin"
+    },
+    "pw_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        24,
+        16,
+        16
+      ],
+      "frac": 4
+    },
+    "dw_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        24,
+        1,
+        3,
+        3
+      ],
+      "frac": 6,
+      "file": "params/dw.weight.int8.bin"
+    },
+    "dw_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        24
+      ],
+      "frac": 4,
+      "file": "params/dw.bias.int8.bin"
+    },
+    "dw_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        24,
+        16,
+        16
+      ],
+      "frac": 4
+    },
+    "dw_out_ref": {
+      "kind": "reference",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        24,
+        16,
+        16
+      ],
+      "frac": 4,
+      "file": "refs/out_ref.int8.bin"
+    }
+  },
+  "nodes": [
+    {
+      "id": "pw",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "ifm",
+        "weight": "pw_w",
+        "bias": "pw_b"
+      },
+      "outputs": {
+        "ofm": "pw_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "dw",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "pw_out",
+        "weight": "dw_w",
+        "bias": "dw_b"
+      },
+      "outputs": {
+        "ofm": "dw_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 24
+      },
+      "post_ops": {
+        "relu": true
+      }
+    }
+  ]
+}

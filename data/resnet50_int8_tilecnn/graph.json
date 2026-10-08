@@ -1,0 +1,3892 @@
+{
+  "schema": "tilecnn.graph.v1",
+  "model": {
+    "name": "resnet50",
+    "producer": "fixed_point_quantizer",
+    "producer_version": "0.1.0",
+    "source_framework": "pytorch"
+  },
+  "target": {
+    "bitwidth": 8,
+    "signed": true,
+    "activation_layout": "CHW",
+    "conv_weight_layout": "OIHW",
+    "linear_weight_layout": "OI",
+    "bias_dtype": "int8"
+  },
+  "graph": {
+    "inputs": [
+      "input"
+    ],
+    "outputs": [
+      "fc_out"
+    ],
+    "references": {
+      "fc_out": "fc_out_ref"
+    }
+  },
+  "tensors": {
+    "input": {
+      "kind": "input",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        3,
+        224,
+        224
+      ],
+      "frac": 5,
+      "file": "inputs/input_0.int8.bin"
+    },
+    "conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        64,
+        112,
+        112
+      ],
+      "frac": 1
+    },
+    "conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        64,
+        3,
+        7,
+        7
+      ],
+      "frac": 5,
+      "file": "params/conv1.weight.int8.bin"
+    },
+    "conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        64
+      ],
+      "frac": 2,
+      "file": "params/conv1.bias.int8.bin"
+    },
+    "maxpool_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        64,
+        56,
+        56
+      ],
+      "frac": 1
+    },
+    "layer1_0_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        64,
+        56,
+        56
+      ],
+      "frac": 3
+    },
+    "layer1_0_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        64,
+        64,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer1_0_conv1.weight.int8.bin"
+    },
+    "layer1_0_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        64
+      ],
+      "frac": 3,
+      "file": "params/layer1_0_conv1.bias.int8.bin"
+    },
+    "layer1_0_downsample_0_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        56,
+        56
+      ],
+      "frac": 2
+    },
+    "layer1_0_downsample_0_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        64,
+        1,
+        1
+      ],
+      "frac": 8,
+      "file": "params/layer1_0_downsample_0.weight.int8.bin"
+    },
+    "layer1_0_downsample_0_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 3,
+      "file": "params/layer1_0_downsample_0.bias.int8.bin"
+    },
+    "layer1_0_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        64,
+        56,
+        56
+      ],
+      "frac": 2
+    },
+    "layer1_0_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "frac": 8,
+      "file": "params/layer1_0_conv2.weight.int8.bin"
+    },
+    "layer1_0_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        64
+      ],
+      "frac": 3,
+      "file": "params/layer1_0_conv2.bias.int8.bin"
+    },
+    "layer1_0_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        56,
+        56
+      ],
+      "frac": 4
+    },
+    "layer1_0_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        64,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer1_0_conv3.weight.int8.bin"
+    },
+    "layer1_0_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 3,
+      "file": "params/layer1_0_conv3.bias.int8.bin"
+    },
+    "layer1_1_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        64,
+        56,
+        56
+      ],
+      "frac": 3
+    },
+    "layer1_1_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        64,
+        256,
+        1,
+        1
+      ],
+      "frac": 8,
+      "file": "params/layer1_1_conv1.weight.int8.bin"
+    },
+    "layer1_1_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        64
+      ],
+      "frac": 3,
+      "file": "params/layer1_1_conv1.bias.int8.bin"
+    },
+    "layer1_1_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        64,
+        56,
+        56
+      ],
+      "frac": 3
+    },
+    "layer1_1_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "frac": 8,
+      "file": "params/layer1_1_conv2.weight.int8.bin"
+    },
+    "layer1_1_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        64
+      ],
+      "frac": 5,
+      "file": "params/layer1_1_conv2.bias.int8.bin"
+    },
+    "layer1_1_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        56,
+        56
+      ],
+      "frac": 4
+    },
+    "layer1_1_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        64,
+        1,
+        1
+      ],
+      "frac": 6,
+      "file": "params/layer1_1_conv3.weight.int8.bin"
+    },
+    "layer1_1_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 5,
+      "file": "params/layer1_1_conv3.bias.int8.bin"
+    },
+    "layer1_2_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        64,
+        56,
+        56
+      ],
+      "frac": 4
+    },
+    "layer1_2_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        64,
+        256,
+        1,
+        1
+      ],
+      "frac": 8,
+      "file": "params/layer1_2_conv1.weight.int8.bin"
+    },
+    "layer1_2_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        64
+      ],
+      "frac": 5,
+      "file": "params/layer1_2_conv1.bias.int8.bin"
+    },
+    "layer1_2_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        64,
+        56,
+        56
+      ],
+      "frac": 3
+    },
+    "layer1_2_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        64,
+        64,
+        3,
+        3
+      ],
+      "frac": 8,
+      "file": "params/layer1_2_conv2.weight.int8.bin"
+    },
+    "layer1_2_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        64
+      ],
+      "frac": 4,
+      "file": "params/layer1_2_conv2.bias.int8.bin"
+    },
+    "layer1_2_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        56,
+        56
+      ],
+      "frac": 4
+    },
+    "layer1_2_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        64,
+        1,
+        1
+      ],
+      "frac": 6,
+      "file": "params/layer1_2_conv3.weight.int8.bin"
+    },
+    "layer1_2_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 3,
+      "file": "params/layer1_2_conv3.bias.int8.bin"
+    },
+    "layer2_0_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        128,
+        56,
+        56
+      ],
+      "frac": 3
+    },
+    "layer2_0_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        128,
+        256,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer2_0_conv1.weight.int8.bin"
+    },
+    "layer2_0_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        128
+      ],
+      "frac": 4,
+      "file": "params/layer2_0_conv1.bias.int8.bin"
+    },
+    "layer2_0_downsample_0_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        512,
+        28,
+        28
+      ],
+      "frac": 3
+    },
+    "layer2_0_downsample_0_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        512,
+        256,
+        1,
+        1
+      ],
+      "frac": 8,
+      "file": "params/layer2_0_downsample_0.weight.int8.bin"
+    },
+    "layer2_0_downsample_0_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        512
+      ],
+      "frac": 4,
+      "file": "params/layer2_0_downsample_0.bias.int8.bin"
+    },
+    "layer2_0_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        128,
+        28,
+        28
+      ],
+      "frac": 3
+    },
+    "layer2_0_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "frac": 9,
+      "file": "params/layer2_0_conv2.weight.int8.bin"
+    },
+    "layer2_0_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        128
+      ],
+      "frac": 4,
+      "file": "params/layer2_0_conv2.bias.int8.bin"
+    },
+    "layer2_0_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        512,
+        28,
+        28
+      ],
+      "frac": 3
+    },
+    "layer2_0_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        512,
+        128,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer2_0_conv3.weight.int8.bin"
+    },
+    "layer2_0_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        512
+      ],
+      "frac": 4,
+      "file": "params/layer2_0_conv3.bias.int8.bin"
+    },
+    "layer2_1_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        128,
+        28,
+        28
+      ],
+      "frac": 4
+    },
+    "layer2_1_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        128,
+        512,
+        1,
+        1
+      ],
+      "frac": 8,
+      "file": "params/layer2_1_conv1.weight.int8.bin"
+    },
+    "layer2_1_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        128
+      ],
+      "frac": 5,
+      "file": "params/layer2_1_conv1.bias.int8.bin"
+    },
+    "layer2_1_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        128,
+        28,
+        28
+      ],
+      "frac": 5
+    },
+    "layer2_1_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "frac": 8,
+      "file": "params/layer2_1_conv2.weight.int8.bin"
+    },
+    "layer2_1_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        128
+      ],
+      "frac": 3,
+      "file": "params/layer2_1_conv2.bias.int8.bin"
+    },
+    "layer2_1_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        512,
+        28,
+        28
+      ],
+      "frac": 3
+    },
+    "layer2_1_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        512,
+        128,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer2_1_conv3.weight.int8.bin"
+    },
+    "layer2_1_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        512
+      ],
+      "frac": 4,
+      "file": "params/layer2_1_conv3.bias.int8.bin"
+    },
+    "layer2_2_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        128,
+        28,
+        28
+      ],
+      "frac": 4
+    },
+    "layer2_2_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        128,
+        512,
+        1,
+        1
+      ],
+      "frac": 8,
+      "file": "params/layer2_2_conv1.weight.int8.bin"
+    },
+    "layer2_2_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        128
+      ],
+      "frac": 6,
+      "file": "params/layer2_2_conv1.bias.int8.bin"
+    },
+    "layer2_2_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        128,
+        28,
+        28
+      ],
+      "frac": 3
+    },
+    "layer2_2_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "frac": 8,
+      "file": "params/layer2_2_conv2.weight.int8.bin"
+    },
+    "layer2_2_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        128
+      ],
+      "frac": 4,
+      "file": "params/layer2_2_conv2.bias.int8.bin"
+    },
+    "layer2_2_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        512,
+        28,
+        28
+      ],
+      "frac": 4
+    },
+    "layer2_2_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        512,
+        128,
+        1,
+        1
+      ],
+      "frac": 6,
+      "file": "params/layer2_2_conv3.weight.int8.bin"
+    },
+    "layer2_2_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        512
+      ],
+      "frac": 4,
+      "file": "params/layer2_2_conv3.bias.int8.bin"
+    },
+    "layer2_3_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        128,
+        28,
+        28
+      ],
+      "frac": 4
+    },
+    "layer2_3_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        128,
+        512,
+        1,
+        1
+      ],
+      "frac": 8,
+      "file": "params/layer2_3_conv1.weight.int8.bin"
+    },
+    "layer2_3_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        128
+      ],
+      "frac": 5,
+      "file": "params/layer2_3_conv1.bias.int8.bin"
+    },
+    "layer2_3_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        128,
+        28,
+        28
+      ],
+      "frac": 3
+    },
+    "layer2_3_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        128,
+        128,
+        3,
+        3
+      ],
+      "frac": 7,
+      "file": "params/layer2_3_conv2.weight.int8.bin"
+    },
+    "layer2_3_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        128
+      ],
+      "frac": 4,
+      "file": "params/layer2_3_conv2.bias.int8.bin"
+    },
+    "layer2_3_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        512,
+        28,
+        28
+      ],
+      "frac": 3
+    },
+    "layer2_3_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        512,
+        128,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer2_3_conv3.weight.int8.bin"
+    },
+    "layer2_3_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        512
+      ],
+      "frac": 3,
+      "file": "params/layer2_3_conv3.bias.int8.bin"
+    },
+    "layer3_0_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        28,
+        28
+      ],
+      "frac": 3
+    },
+    "layer3_0_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        512,
+        1,
+        1
+      ],
+      "frac": 8,
+      "file": "params/layer3_0_conv1.weight.int8.bin"
+    },
+    "layer3_0_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 4,
+      "file": "params/layer3_0_conv1.bias.int8.bin"
+    },
+    "layer3_0_downsample_0_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        1024,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_0_downsample_0_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        1024,
+        512,
+        1,
+        1
+      ],
+      "frac": 8,
+      "file": "params/layer3_0_downsample_0.weight.int8.bin"
+    },
+    "layer3_0_downsample_0_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        1024
+      ],
+      "frac": 4,
+      "file": "params/layer3_0_downsample_0.bias.int8.bin"
+    },
+    "layer3_0_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_0_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "frac": 9,
+      "file": "params/layer3_0_conv2.weight.int8.bin"
+    },
+    "layer3_0_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 5,
+      "file": "params/layer3_0_conv2.bias.int8.bin"
+    },
+    "layer3_0_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        1024,
+        14,
+        14
+      ],
+      "frac": 3
+    },
+    "layer3_0_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        1024,
+        256,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer3_0_conv3.weight.int8.bin"
+    },
+    "layer3_0_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        1024
+      ],
+      "frac": 3,
+      "file": "params/layer3_0_conv3.bias.int8.bin"
+    },
+    "layer3_1_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_1_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        1024,
+        1,
+        1
+      ],
+      "frac": 9,
+      "file": "params/layer3_1_conv1.weight.int8.bin"
+    },
+    "layer3_1_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 5,
+      "file": "params/layer3_1_conv1.bias.int8.bin"
+    },
+    "layer3_1_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_1_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "frac": 8,
+      "file": "params/layer3_1_conv2.weight.int8.bin"
+    },
+    "layer3_1_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 5,
+      "file": "params/layer3_1_conv2.bias.int8.bin"
+    },
+    "layer3_1_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        1024,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_1_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        1024,
+        256,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer3_1_conv3.weight.int8.bin"
+    },
+    "layer3_1_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        1024
+      ],
+      "frac": 5,
+      "file": "params/layer3_1_conv3.bias.int8.bin"
+    },
+    "layer3_2_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_2_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        1024,
+        1,
+        1
+      ],
+      "frac": 9,
+      "file": "params/layer3_2_conv1.weight.int8.bin"
+    },
+    "layer3_2_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 5,
+      "file": "params/layer3_2_conv1.bias.int8.bin"
+    },
+    "layer3_2_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_2_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "frac": 8,
+      "file": "params/layer3_2_conv2.weight.int8.bin"
+    },
+    "layer3_2_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 4,
+      "file": "params/layer3_2_conv2.bias.int8.bin"
+    },
+    "layer3_2_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        1024,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_2_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        1024,
+        256,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer3_2_conv3.weight.int8.bin"
+    },
+    "layer3_2_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        1024
+      ],
+      "frac": 5,
+      "file": "params/layer3_2_conv3.bias.int8.bin"
+    },
+    "layer3_3_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_3_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        1024,
+        1,
+        1
+      ],
+      "frac": 8,
+      "file": "params/layer3_3_conv1.weight.int8.bin"
+    },
+    "layer3_3_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 5,
+      "file": "params/layer3_3_conv1.bias.int8.bin"
+    },
+    "layer3_3_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_3_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "frac": 8,
+      "file": "params/layer3_3_conv2.weight.int8.bin"
+    },
+    "layer3_3_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 4,
+      "file": "params/layer3_3_conv2.bias.int8.bin"
+    },
+    "layer3_3_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        1024,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_3_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        1024,
+        256,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer3_3_conv3.weight.int8.bin"
+    },
+    "layer3_3_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        1024
+      ],
+      "frac": 4,
+      "file": "params/layer3_3_conv3.bias.int8.bin"
+    },
+    "layer3_4_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_4_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        1024,
+        1,
+        1
+      ],
+      "frac": 9,
+      "file": "params/layer3_4_conv1.weight.int8.bin"
+    },
+    "layer3_4_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 5,
+      "file": "params/layer3_4_conv1.bias.int8.bin"
+    },
+    "layer3_4_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_4_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "frac": 8,
+      "file": "params/layer3_4_conv2.weight.int8.bin"
+    },
+    "layer3_4_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 4,
+      "file": "params/layer3_4_conv2.bias.int8.bin"
+    },
+    "layer3_4_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        1024,
+        14,
+        14
+      ],
+      "frac": 3
+    },
+    "layer3_4_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        1024,
+        256,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer3_4_conv3.weight.int8.bin"
+    },
+    "layer3_4_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        1024
+      ],
+      "frac": 4,
+      "file": "params/layer3_4_conv3.bias.int8.bin"
+    },
+    "layer3_5_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        14,
+        14
+      ],
+      "frac": 4
+    },
+    "layer3_5_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        1024,
+        1,
+        1
+      ],
+      "frac": 9,
+      "file": "params/layer3_5_conv1.weight.int8.bin"
+    },
+    "layer3_5_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 5,
+      "file": "params/layer3_5_conv1.bias.int8.bin"
+    },
+    "layer3_5_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        14,
+        14
+      ],
+      "frac": 3
+    },
+    "layer3_5_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        256,
+        3,
+        3
+      ],
+      "frac": 8,
+      "file": "params/layer3_5_conv2.weight.int8.bin"
+    },
+    "layer3_5_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 4,
+      "file": "params/layer3_5_conv2.bias.int8.bin"
+    },
+    "layer3_5_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        1024,
+        14,
+        14
+      ],
+      "frac": 3
+    },
+    "layer3_5_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        1024,
+        256,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer3_5_conv3.weight.int8.bin"
+    },
+    "layer3_5_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        1024
+      ],
+      "frac": 4,
+      "file": "params/layer3_5_conv3.bias.int8.bin"
+    },
+    "layer4_0_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        512,
+        14,
+        14
+      ],
+      "frac": 3
+    },
+    "layer4_0_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        512,
+        1024,
+        1,
+        1
+      ],
+      "frac": 8,
+      "file": "params/layer4_0_conv1.weight.int8.bin"
+    },
+    "layer4_0_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        512
+      ],
+      "frac": 5,
+      "file": "params/layer4_0_conv1.bias.int8.bin"
+    },
+    "layer4_0_downsample_0_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        2048,
+        7,
+        7
+      ],
+      "frac": 3
+    },
+    "layer4_0_downsample_0_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        2048,
+        1024,
+        1,
+        1
+      ],
+      "frac": 8,
+      "file": "params/layer4_0_downsample_0.weight.int8.bin"
+    },
+    "layer4_0_downsample_0_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        2048
+      ],
+      "frac": 4,
+      "file": "params/layer4_0_downsample_0.bias.int8.bin"
+    },
+    "layer4_0_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        512,
+        7,
+        7
+      ],
+      "frac": 3
+    },
+    "layer4_0_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "frac": 9,
+      "file": "params/layer4_0_conv2.weight.int8.bin"
+    },
+    "layer4_0_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        512
+      ],
+      "frac": 4,
+      "file": "params/layer4_0_conv2.bias.int8.bin"
+    },
+    "layer4_0_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        2048,
+        7,
+        7
+      ],
+      "frac": 1
+    },
+    "layer4_0_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        2048,
+        512,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer4_0_conv3.weight.int8.bin"
+    },
+    "layer4_0_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        2048
+      ],
+      "frac": 3,
+      "file": "params/layer4_0_conv3.bias.int8.bin"
+    },
+    "layer4_1_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        512,
+        7,
+        7
+      ],
+      "frac": 4
+    },
+    "layer4_1_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        512,
+        2048,
+        1,
+        1
+      ],
+      "frac": 9,
+      "file": "params/layer4_1_conv1.weight.int8.bin"
+    },
+    "layer4_1_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        512
+      ],
+      "frac": 4,
+      "file": "params/layer4_1_conv1.bias.int8.bin"
+    },
+    "layer4_1_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        512,
+        7,
+        7
+      ],
+      "frac": 4
+    },
+    "layer4_1_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "frac": 9,
+      "file": "params/layer4_1_conv2.weight.int8.bin"
+    },
+    "layer4_1_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        512
+      ],
+      "frac": 5,
+      "file": "params/layer4_1_conv2.bias.int8.bin"
+    },
+    "layer4_1_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        2048,
+        7,
+        7
+      ],
+      "frac": 2
+    },
+    "layer4_1_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        2048,
+        512,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer4_1_conv3.weight.int8.bin"
+    },
+    "layer4_1_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        2048
+      ],
+      "frac": 3,
+      "file": "params/layer4_1_conv3.bias.int8.bin"
+    },
+    "layer4_2_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        512,
+        7,
+        7
+      ],
+      "frac": 6
+    },
+    "layer4_2_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        512,
+        2048,
+        1,
+        1
+      ],
+      "frac": 9,
+      "file": "params/layer4_2_conv1.weight.int8.bin"
+    },
+    "layer4_2_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        512
+      ],
+      "frac": 4,
+      "file": "params/layer4_2_conv1.bias.int8.bin"
+    },
+    "layer4_2_conv2_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        512,
+        7,
+        7
+      ],
+      "frac": 3
+    },
+    "layer4_2_conv2_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        512,
+        512,
+        3,
+        3
+      ],
+      "frac": 10,
+      "file": "params/layer4_2_conv2.weight.int8.bin"
+    },
+    "layer4_2_conv2_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        512
+      ],
+      "frac": 3,
+      "file": "params/layer4_2_conv2.bias.int8.bin"
+    },
+    "layer4_2_conv3_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        2048,
+        7,
+        7
+      ],
+      "frac": 1
+    },
+    "layer4_2_conv3_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        2048,
+        512,
+        1,
+        1
+      ],
+      "frac": 6,
+      "file": "params/layer4_2_conv3.weight.int8.bin"
+    },
+    "layer4_2_conv3_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        2048
+      ],
+      "frac": 4,
+      "file": "params/layer4_2_conv3.bias.int8.bin"
+    },
+    "avgpool_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        2048,
+        1,
+        1
+      ],
+      "frac": 3
+    },
+    "fc_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        1000,
+        1,
+        1
+      ],
+      "frac": 3
+    },
+    "fc_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OI",
+      "shape": [
+        1000,
+        2048
+      ],
+      "frac": 6,
+      "file": "params/fc.weight.int8.bin"
+    },
+    "fc_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        1000
+      ],
+      "frac": 7,
+      "file": "params/fc.bias.int8.bin"
+    },
+    "fc_out_ref": {
+      "kind": "reference",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        1000,
+        1,
+        1
+      ],
+      "frac": 3,
+      "file": "refs/fc_out_ref.int8.bin"
+    }
+  },
+  "nodes": [
+    {
+      "id": "conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "input",
+        "weight": "conv1_w",
+        "bias": "conv1_b"
+      },
+      "outputs": {
+        "ofm": "conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          7,
+          7
+        ],
+        "stride": [
+          2,
+          2
+        ],
+        "padding": [
+          3,
+          3,
+          3,
+          3
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "maxpool",
+      "op": "maxpool2d",
+      "inputs": {
+        "ifm": "conv1_out"
+      },
+      "outputs": {
+        "ofm": "maxpool_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          2,
+          2
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "layer1_0_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "maxpool_out",
+        "weight": "layer1_0_conv1_w",
+        "bias": "layer1_0_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer1_0_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer1_0_downsample_0",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "maxpool_out",
+        "weight": "layer1_0_downsample_0_w",
+        "bias": "layer1_0_downsample_0_b"
+      },
+      "outputs": {
+        "ofm": "layer1_0_downsample_0_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {}
+    },
+    {
+      "id": "layer1_0_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer1_0_conv1_out",
+        "weight": "layer1_0_conv2_w",
+        "bias": "layer1_0_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer1_0_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer1_0_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer1_0_conv2_out",
+        "weight": "layer1_0_conv3_w",
+        "bias": "layer1_0_conv3_b",
+        "residual": "layer1_0_downsample_0_out"
+      },
+      "outputs": {
+        "ofm": "layer1_0_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer1_1_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer1_0_conv3_out",
+        "weight": "layer1_1_conv1_w",
+        "bias": "layer1_1_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer1_1_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer1_1_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer1_1_conv1_out",
+        "weight": "layer1_1_conv2_w",
+        "bias": "layer1_1_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer1_1_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer1_1_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer1_1_conv2_out",
+        "weight": "layer1_1_conv3_w",
+        "bias": "layer1_1_conv3_b",
+        "residual": "layer1_0_conv3_out"
+      },
+      "outputs": {
+        "ofm": "layer1_1_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer1_2_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer1_1_conv3_out",
+        "weight": "layer1_2_conv1_w",
+        "bias": "layer1_2_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer1_2_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer1_2_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer1_2_conv1_out",
+        "weight": "layer1_2_conv2_w",
+        "bias": "layer1_2_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer1_2_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer1_2_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer1_2_conv2_out",
+        "weight": "layer1_2_conv3_w",
+        "bias": "layer1_2_conv3_b",
+        "residual": "layer1_1_conv3_out"
+      },
+      "outputs": {
+        "ofm": "layer1_2_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer2_0_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer1_2_conv3_out",
+        "weight": "layer2_0_conv1_w",
+        "bias": "layer2_0_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer2_0_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer2_0_downsample_0",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer1_2_conv3_out",
+        "weight": "layer2_0_downsample_0_w",
+        "bias": "layer2_0_downsample_0_b"
+      },
+      "outputs": {
+        "ofm": "layer2_0_downsample_0_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          2,
+          2
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {}
+    },
+    {
+      "id": "layer2_0_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer2_0_conv1_out",
+        "weight": "layer2_0_conv2_w",
+        "bias": "layer2_0_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer2_0_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          2,
+          2
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer2_0_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer2_0_conv2_out",
+        "weight": "layer2_0_conv3_w",
+        "bias": "layer2_0_conv3_b",
+        "residual": "layer2_0_downsample_0_out"
+      },
+      "outputs": {
+        "ofm": "layer2_0_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer2_1_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer2_0_conv3_out",
+        "weight": "layer2_1_conv1_w",
+        "bias": "layer2_1_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer2_1_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer2_1_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer2_1_conv1_out",
+        "weight": "layer2_1_conv2_w",
+        "bias": "layer2_1_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer2_1_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer2_1_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer2_1_conv2_out",
+        "weight": "layer2_1_conv3_w",
+        "bias": "layer2_1_conv3_b",
+        "residual": "layer2_0_conv3_out"
+      },
+      "outputs": {
+        "ofm": "layer2_1_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer2_2_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer2_1_conv3_out",
+        "weight": "layer2_2_conv1_w",
+        "bias": "layer2_2_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer2_2_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer2_2_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer2_2_conv1_out",
+        "weight": "layer2_2_conv2_w",
+        "bias": "layer2_2_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer2_2_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer2_2_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer2_2_conv2_out",
+        "weight": "layer2_2_conv3_w",
+        "bias": "layer2_2_conv3_b",
+        "residual": "layer2_1_conv3_out"
+      },
+      "outputs": {
+        "ofm": "layer2_2_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer2_3_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer2_2_conv3_out",
+        "weight": "layer2_3_conv1_w",
+        "bias": "layer2_3_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer2_3_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer2_3_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer2_3_conv1_out",
+        "weight": "layer2_3_conv2_w",
+        "bias": "layer2_3_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer2_3_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer2_3_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer2_3_conv2_out",
+        "weight": "layer2_3_conv3_w",
+        "bias": "layer2_3_conv3_b",
+        "residual": "layer2_2_conv3_out"
+      },
+      "outputs": {
+        "ofm": "layer2_3_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer3_0_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer2_3_conv3_out",
+        "weight": "layer3_0_conv1_w",
+        "bias": "layer3_0_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer3_0_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer3_0_downsample_0",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer2_3_conv3_out",
+        "weight": "layer3_0_downsample_0_w",
+        "bias": "layer3_0_downsample_0_b"
+      },
+      "outputs": {
+        "ofm": "layer3_0_downsample_0_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          2,
+          2
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {}
+    },
+    {
+      "id": "layer3_0_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_0_conv1_out",
+        "weight": "layer3_0_conv2_w",
+        "bias": "layer3_0_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer3_0_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          2,
+          2
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer3_0_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_0_conv2_out",
+        "weight": "layer3_0_conv3_w",
+        "bias": "layer3_0_conv3_b",
+        "residual": "layer3_0_downsample_0_out"
+      },
+      "outputs": {
+        "ofm": "layer3_0_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer3_1_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_0_conv3_out",
+        "weight": "layer3_1_conv1_w",
+        "bias": "layer3_1_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer3_1_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer3_1_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_1_conv1_out",
+        "weight": "layer3_1_conv2_w",
+        "bias": "layer3_1_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer3_1_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer3_1_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_1_conv2_out",
+        "weight": "layer3_1_conv3_w",
+        "bias": "layer3_1_conv3_b",
+        "residual": "layer3_0_conv3_out"
+      },
+      "outputs": {
+        "ofm": "layer3_1_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer3_2_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_1_conv3_out",
+        "weight": "layer3_2_conv1_w",
+        "bias": "layer3_2_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer3_2_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer3_2_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_2_conv1_out",
+        "weight": "layer3_2_conv2_w",
+        "bias": "layer3_2_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer3_2_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer3_2_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_2_conv2_out",
+        "weight": "layer3_2_conv3_w",
+        "bias": "layer3_2_conv3_b",
+        "residual": "layer3_1_conv3_out"
+      },
+      "outputs": {
+        "ofm": "layer3_2_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer3_3_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_2_conv3_out",
+        "weight": "layer3_3_conv1_w",
+        "bias": "layer3_3_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer3_3_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer3_3_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_3_conv1_out",
+        "weight": "layer3_3_conv2_w",
+        "bias": "layer3_3_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer3_3_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer3_3_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_3_conv2_out",
+        "weight": "layer3_3_conv3_w",
+        "bias": "layer3_3_conv3_b",
+        "residual": "layer3_2_conv3_out"
+      },
+      "outputs": {
+        "ofm": "layer3_3_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer3_4_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_3_conv3_out",
+        "weight": "layer3_4_conv1_w",
+        "bias": "layer3_4_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer3_4_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer3_4_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_4_conv1_out",
+        "weight": "layer3_4_conv2_w",
+        "bias": "layer3_4_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer3_4_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer3_4_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_4_conv2_out",
+        "weight": "layer3_4_conv3_w",
+        "bias": "layer3_4_conv3_b",
+        "residual": "layer3_3_conv3_out"
+      },
+      "outputs": {
+        "ofm": "layer3_4_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer3_5_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_4_conv3_out",
+        "weight": "layer3_5_conv1_w",
+        "bias": "layer3_5_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer3_5_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer3_5_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_5_conv1_out",
+        "weight": "layer3_5_conv2_w",
+        "bias": "layer3_5_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer3_5_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer3_5_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_5_conv2_out",
+        "weight": "layer3_5_conv3_w",
+        "bias": "layer3_5_conv3_b",
+        "residual": "layer3_4_conv3_out"
+      },
+      "outputs": {
+        "ofm": "layer3_5_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer4_0_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_5_conv3_out",
+        "weight": "layer4_0_conv1_w",
+        "bias": "layer4_0_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer4_0_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer4_0_downsample_0",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer3_5_conv3_out",
+        "weight": "layer4_0_downsample_0_w",
+        "bias": "layer4_0_downsample_0_b"
+      },
+      "outputs": {
+        "ofm": "layer4_0_downsample_0_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          2,
+          2
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {}
+    },
+    {
+      "id": "layer4_0_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer4_0_conv1_out",
+        "weight": "layer4_0_conv2_w",
+        "bias": "layer4_0_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer4_0_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          2,
+          2
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer4_0_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer4_0_conv2_out",
+        "weight": "layer4_0_conv3_w",
+        "bias": "layer4_0_conv3_b",
+        "residual": "layer4_0_downsample_0_out"
+      },
+      "outputs": {
+        "ofm": "layer4_0_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer4_1_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer4_0_conv3_out",
+        "weight": "layer4_1_conv1_w",
+        "bias": "layer4_1_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer4_1_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer4_1_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer4_1_conv1_out",
+        "weight": "layer4_1_conv2_w",
+        "bias": "layer4_1_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer4_1_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer4_1_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer4_1_conv2_out",
+        "weight": "layer4_1_conv3_w",
+        "bias": "layer4_1_conv3_b",
+        "residual": "layer4_0_conv3_out"
+      },
+      "outputs": {
+        "ofm": "layer4_1_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "layer4_2_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer4_1_conv3_out",
+        "weight": "layer4_2_conv1_w",
+        "bias": "layer4_2_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer4_2_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer4_2_conv2",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer4_2_conv1_out",
+        "weight": "layer4_2_conv2_w",
+        "bias": "layer4_2_conv2_b"
+      },
+      "outputs": {
+        "ofm": "layer4_2_conv2_out"
+      },
+      "attrs": {
+        "kernel": [
+          3,
+          3
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    },
+    {
+      "id": "layer4_2_conv3",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "layer4_2_conv2_out",
+        "weight": "layer4_2_conv3_w",
+        "bias": "layer4_2_conv3_b",
+        "residual": "layer4_1_conv3_out"
+      },
+      "outputs": {
+        "ofm": "layer4_2_conv3_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "residual_add": true,
+        "post_add_relu": true
+      }
+    },
+    {
+      "id": "avgpool",
+      "op": "gap2d",
+      "inputs": {
+        "ifm": "layer4_2_conv3_out"
+      },
+      "outputs": {
+        "ofm": "avgpool_out"
+      }
+    },
+    {
+      "id": "fc",
+      "op": "linear",
+      "inputs": {
+        "ifm": "avgpool_out",
+        "weight": "fc_w",
+        "bias": "fc_b"
+      },
+      "outputs": {
+        "ofm": "fc_out"
+      }
+    }
+  ]
+}

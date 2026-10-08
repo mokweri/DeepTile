@@ -1,0 +1,124 @@
+{
+  "schema": "tilecnn.graph.v1",
+  "model": {
+    "name": "resnet50_uram_refactor",
+    "producer": "fixed_point_quantizer",
+    "producer_version": "0.1.0",
+    "source_framework": "pytorch"
+  },
+  "target": {
+    "bitwidth": 8,
+    "signed": true,
+    "activation_layout": "CHW",
+    "conv_weight_layout": "OIHW",
+    "linear_weight_layout": "OI",
+    "bias_dtype": "int8"
+  },
+  "graph": {
+    "inputs": [
+      "ext_in_layer3_5_relu_2"
+    ],
+    "outputs": [
+      "layer4_0_downsample_0_out"
+    ],
+    "references": {
+      "layer4_0_downsample_0_out": "layer4_0_downsample_0_out_ref"
+    }
+  },
+  "tensors": {
+    "ext_in_layer3_5_relu_2": {
+      "kind": "input",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        1024,
+        14,
+        14
+      ],
+      "frac": 7,
+      "file": "inputs/ext_in_layer3_5_relu_2.int8.bin"
+    },
+    "layer4_0_downsample_0_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        2048,
+        7,
+        7
+      ],
+      "frac": 7
+    },
+    "layer4_0_downsample_0_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        2048,
+        1024,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer4_0_downsample_0.weight.int8.bin"
+    },
+    "layer4_0_downsample_0_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        2048
+      ],
+      "frac": 7,
+      "file": "params/layer4_0_downsample_0.bias.int8.bin"
+    },
+    "layer4_0_downsample_0_out_ref": {
+      "kind": "reference",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        2048,
+        7,
+        7
+      ],
+      "frac": 7,
+      "file": "refs/layer4_0_downsample_0_out_ref.int8.bin"
+    }
+  },
+  "nodes": [
+    {
+      "id": "layer4_0_downsample_0",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "ext_in_layer3_5_relu_2",
+        "weight": "layer4_0_downsample_0_w",
+        "bias": "layer4_0_downsample_0_b"
+      },
+      "outputs": {
+        "ofm": "layer4_0_downsample_0_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          2,
+          2
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {}
+    }
+  ]
+}

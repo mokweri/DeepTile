@@ -1,0 +1,37 @@
+# Doxygen configuration for the DeepTile C++ API reference.
+# Run from the repository root:  doxygen docs/doxygen/Doxyfile
+# Only non-default settings are listed. Output lands in docs/reference/api/,
+# which MkDocs serves as static files and Git ignores.
+
+PROJECT_NAME           = "DeepTile"
+PROJECT_BRIEF          = "Descriptor-driven INT8 CNN accelerator: C++ API"
+
+INPUT                  = src/common \
+                         src/compiler/include \
+                         src/host \
+                         src/kernel \
+                         docs/doxygen/mainpage.md \
+                         docs/doxygen/groups.dox
+RECURSIVE              = YES
+FILE_PATTERNS          = *.h *.hpp *.md *.dox
+EXCLUDE                = src/kernel/linebuffer.hpp
+EXCLUDE_PATTERNS       = */README.md
+USE_MDFILE_AS_MAINPAGE = docs/doxygen/mainpage.md
+STRIP_FROM_PATH        = .
+FULL_PATH_NAMES        = YES
+
+EXTRACT_ALL            = NO
+EXTRACT_STATIC         = NO
+EXTRACT_PRIVATE        = NO
+QUIET                  = YES
+WARN_IF_UNDOCUMENTED   = NO
+WARN_AS_ERROR          = YES
+WARN_LOGFILE           = build/docs/doxygen-warnings.log
+
+OUTPUT_DIRECTORY       = docs/reference/api
+HTML_OUTPUT            = .
+GENERATE_LATEX         = NO
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+HTML_EXTRA_STYLESHEET  = docs/doxygen/doxygen-awesome.css
+SEARCHENGINE           = YES

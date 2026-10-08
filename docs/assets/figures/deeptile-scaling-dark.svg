@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 500" width="1600" height="500" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="Kernel speedup over P2-S against added compute. P4-S: 2x compute, ResNet-50 1.58x, MobileNetV2 1.26x; P8-S: 4x compute, ResNet-50 2.11x, MobileNetV2 1.41x">
+<rect x="330" y="36" width="26" height="26" rx="4" fill="#5A94E0"/><text x="368" y="57" font-size="26" fill="#E6EDF3">ResNet-50</text>
+<rect x="563" y="36" width="26" height="26" rx="4" fill="#CF7B2B"/><text x="601" y="57" font-size="26" fill="#E6EDF3">MobileNetV2</text>
+<rect x="826" y="36" width="26" height="26" rx="4" fill="#262C36" stroke="#30363D" stroke-width="1.5"/><text x="864" y="57" font-size="26" fill="#E6EDF3">Added compute</text>
+<line x1="617.5" y1="100" x2="617.5" y2="398" stroke="#30363D" stroke-width="1.5" stroke-dasharray="6 6"/>
+<text x="617.5" y="432" font-size="24" fill="#9198A1" text-anchor="middle">1×</text>
+<line x1="905.0" y1="100" x2="905.0" y2="398" stroke="#30363D" stroke-width="1.5"/>
+<text x="905.0" y="432" font-size="24" fill="#9198A1" text-anchor="middle">2×</text>
+<line x1="1192.5" y1="100" x2="1192.5" y2="398" stroke="#30363D" stroke-width="1.5"/>
+<text x="1192.5" y="432" font-size="24" fill="#9198A1" text-anchor="middle">3×</text>
+<line x1="1480.0" y1="100" x2="1480.0" y2="398" stroke="#30363D" stroke-width="1.5"/>
+<text x="1480.0" y="432" font-size="24" fill="#9198A1" text-anchor="middle">4×</text>
+<text x="617.5" y="464" font-size="22" fill="#9198A1" text-anchor="middle">P2-S baseline</text>
+<text x="1192.5" y="464" font-size="22" fill="#9198A1" text-anchor="middle">Kernel speedup over P2-S</text>
+<text x="302" y="165.0" font-size="30" font-weight="700" fill="#E6EDF3" text-anchor="end">P4-S</text>
+<text x="302" y="197.0" font-size="22" fill="#9198A1" text-anchor="end">2× compute</text>
+<rect x="330" y="118" width="575.0" height="46" rx="6" fill="#262C36"/>
+<path d="M330,118 h446.9323154150711 a6,6 0 0 1 6,6 v34 a6,6 0 0 1 -6,6 h-446.9323154150711 z" fill="#5A94E0"/>
+<text x="796.9323154150711" y="150.0" font-size="26" font-weight="700" fill="#E6EDF3">1.58×</text>
+<rect x="330" y="174" width="575.0" height="46" rx="6" fill="#262C36"/>
+<path d="M330,174 h355.97833274489756 a6,6 0 0 1 6,6 v34 a6,6 0 0 1 -6,6 h-355.97833274489756 z" fill="#CF7B2B"/>
+<text x="705.9783327448976" y="206.0" font-size="26" font-weight="700" fill="#E6EDF3">1.26×</text>
+<text x="302" y="325.0" font-size="30" font-weight="700" fill="#E6EDF3" text-anchor="end">P8-S</text>
+<text x="302" y="357.0" font-size="22" fill="#9198A1" text-anchor="end">4× compute</text>
+<rect x="330" y="278" width="1150.0" height="46" rx="6" fill="#262C36"/>
+<path d="M330,278 h600.486642591252 a6,6 0 0 1 6,6 v34 a6,6 0 0 1 -6,6 h-600.486642591252 z" fill="#5A94E0"/>
+<text x="950.486642591252" y="310.0" font-size="26" font-weight="700" fill="#E6EDF3">2.11×</text>
+<rect x="330" y="334" width="1150.0" height="46" rx="6" fill="#262C36"/>
+<path d="M330,334 h398.9464392863415 a6,6 0 0 1 6,6 v34 a6,6 0 0 1 -6,6 h-398.9464392863415 z" fill="#CF7B2B"/>
+<text x="748.9464392863415" y="366.0" font-size="26" font-weight="700" fill="#E6EDF3">1.41×</text>
+</svg>

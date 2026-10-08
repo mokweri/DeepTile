@@ -1,0 +1,51 @@
+/**
+ * @defgroup deeptile_common Shared architecture and kernel ABI
+ * @brief Types and constants shared across the compiler, host, and FPGA kernel.
+ *
+ * Changes in this module can affect both software compatibility and the
+ * synthesized interface. Start with arch_config.h and kernel_abi.h.
+ */
+
+/**
+ * @defgroup deeptile_compiler Model compiler and scheduler
+ * @brief ModelPackage loading, graph lowering, scheduling, and descriptor emission.
+ *
+ * The compiler turns a graph handoff into a target-specific execution plan
+ * without changing the FPGA implementation.
+ */
+
+/**
+ * @defgroup deeptile_host Host runtime and dataset evaluation
+ * @brief Plan preparation, XRT execution, validation, measurement, and datasets.
+ *
+ * The host embeds the compiler, prepares device buffers, executes launches,
+ * evaluates datasets, and writes RunRecords.
+ */
+
+/**
+ * @defgroup deeptile_kernel FPGA kernel
+ * @brief Descriptor-driven HLS datapath and its streaming stages.
+ *
+ * tile_conv.h declares the top-level kernel; the other headers document the
+ * input, compute, depthwise, and post-processing stages.
+ */
+
+/** @namespace deeptile::graph
+ *  @brief Graph import, ModelPackage validation, and graph compilation.
+ *  @ingroup deeptile_compiler
+ */
+
+/** @namespace deeptile::tile
+ *  @brief Target-aware tiling, scheduling, cost modelling, and descriptor emission.
+ *  @ingroup deeptile_compiler
+ */
+
+/** @namespace deeptile::runtime
+ *  @brief Runtime planning, device execution, artifact checks, and RunRecords.
+ *  @ingroup deeptile_host
+ */
+
+/** @namespace deeptile::dataset
+ *  @brief Dataset indexing, preprocessing, pipelines, and classification metrics.
+ *  @ingroup deeptile_host
+ */

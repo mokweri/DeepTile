@@ -1,0 +1,57 @@
+# Build the documentation site and publish it to GitHub Pages.
+#
+# Pull requests validate the documentation without publishing it. Deployment
+# is triggered manually.
+
+name: Documentation
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - "src/**/*.h"
+      - "src/**/*.hpp"
+      - "mkdocs.yml"
+      - "scripts/Makefile"
+      - ".github/workflows/docs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Doxygen and Graphviz
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+      - name: Install MkDocs
+        run: pip install -r docs/requirements.txt
+      - name: Build C++ API reference
+        run: mkdir -p build/docs && doxygen docs/doxygen/Doxyfile
+      - name: Build site
+        run: mkdocs build --strict
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/docs/site
+
+  deploy:
+    if: github.event_name == 'workflow_dispatch'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

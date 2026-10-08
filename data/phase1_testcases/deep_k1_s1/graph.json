@@ -1,0 +1,126 @@
+{
+  "schema": "tilecnn.graph.v1",
+  "model": {
+    "name": "resnet50_uram_refactor",
+    "producer": "fixed_point_quantizer",
+    "producer_version": "0.1.0",
+    "source_framework": "pytorch"
+  },
+  "target": {
+    "bitwidth": 8,
+    "signed": true,
+    "activation_layout": "CHW",
+    "conv_weight_layout": "OIHW",
+    "linear_weight_layout": "OI",
+    "bias_dtype": "int8"
+  },
+  "graph": {
+    "inputs": [
+      "ext_in_layer3_0_relu_2"
+    ],
+    "outputs": [
+      "layer3_1_conv1_out"
+    ],
+    "references": {
+      "layer3_1_conv1_out": "layer3_1_conv1_out_ref"
+    }
+  },
+  "tensors": {
+    "ext_in_layer3_0_relu_2": {
+      "kind": "input",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        1024,
+        14,
+        14
+      ],
+      "frac": 7,
+      "file": "inputs/ext_in_layer3_0_relu_2.int8.bin"
+    },
+    "layer3_1_conv1_out": {
+      "kind": "activation",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        14,
+        14
+      ],
+      "frac": 7
+    },
+    "layer3_1_conv1_w": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "OIHW",
+      "shape": [
+        256,
+        1024,
+        1,
+        1
+      ],
+      "frac": 7,
+      "file": "params/layer3_1_conv1.weight.int8.bin"
+    },
+    "layer3_1_conv1_b": {
+      "kind": "param",
+      "dtype": "int8",
+      "layout": "O",
+      "shape": [
+        256
+      ],
+      "frac": 7,
+      "file": "params/layer3_1_conv1.bias.int8.bin"
+    },
+    "layer3_1_conv1_out_ref": {
+      "kind": "reference",
+      "dtype": "int8",
+      "layout": "CHW",
+      "shape": [
+        256,
+        14,
+        14
+      ],
+      "frac": 7,
+      "file": "refs/layer3_1_conv1_out_ref.int8.bin"
+    }
+  },
+  "nodes": [
+    {
+      "id": "layer3_1_conv1",
+      "op": "conv2d",
+      "inputs": {
+        "ifm": "ext_in_layer3_0_relu_2",
+        "weight": "layer3_1_conv1_w",
+        "bias": "layer3_1_conv1_b"
+      },
+      "outputs": {
+        "ofm": "layer3_1_conv1_out"
+      },
+      "attrs": {
+        "kernel": [
+          1,
+          1
+        ],
+        "stride": [
+          1,
+          1
+        ],
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "dilation": [
+          1,
+          1
+        ],
+        "groups": 1
+      },
+      "post_ops": {
+        "relu": true
+      }
+    }
+  ]
+}
