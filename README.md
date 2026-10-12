@@ -17,7 +17,7 @@ compilation, not a new FPGA build.
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-2A62A8.svg)](LICENSE)
 &nbsp;
-[![Documentation](https://img.shields.io/badge/Docs-DeepTile-59636E)](docs/index.md)
+[![Documentation](https://img.shields.io/badge/Docs-DeepTile-59636E)](https://mokweri.github.io/DeepTile/)
 &nbsp;
 [![Platform: ZCU104](https://img.shields.io/badge/Platform-ZCU104-C2701A)](https://www.xilinx.com/products/boards-and-kits/zcu104.html)
 
@@ -80,8 +80,8 @@ streaming path:
   <img src="docs/assets/figures/paper/deeptile-datapath.svg" alt="DeepTile accelerator datapath: descriptor control, the input loader above the dense MAC array, the ping-pong weight buffer beside it, the accumulate stage with single or ping-pong partial sums, and the output chain of requantization, residual add, pooling, depthwise stage and write-back." width="96%">
 </p>
 
-See [How DeepTile works](docs/concepts/how-it-works.md) and
-[Hardware architecture](docs/concepts/hardware-architecture.md) for the details.
+See [How DeepTile works](https://mokweri.github.io/DeepTile/concepts/how-it-works/) and
+[Hardware architecture](https://mokweri.github.io/DeepTile/concepts/hardware-architecture/) for the details.
 
 ## Scope
 
@@ -100,8 +100,8 @@ configuration and workloads are:
 | Other operations | Fused 3x3 and 5x5 depthwise convolution, residual add, max pool, global average pool, ReLU and ReLU6, and output requantization |
 | Implemented targets | P2 and P4 ping-pong; P2, P4 and P8 single-buffer |
 
-See [Build a hardware target](docs/guides/build-a-target.md) to generate a
-target package, and [Port to another board](docs/guides/port-to-another-board.md)
+See [Build a hardware target](https://mokweri.github.io/DeepTile/guides/build-a-target/) to generate a
+target package, and [Port to another board](https://mokweri.github.io/DeepTile/guides/port-to-another-board/)
 to adapt the framework to another platform.
 
 ## Results
@@ -126,7 +126,7 @@ The custom VGG-class model is not stock VGG-16; it uses supported pooling and
 classifier geometry. Predictions are byte-identical across all five targets.
 The routed kernels use 551 DSPs at P2, 805 at P4 and 1,316 at P8, with ping-pong
 partial sums adding 32 BRAM tiles at fixed width.
-[Reproduce the results](docs/guides/reproduce-results.md) regenerates these
+[Reproduce the results](https://mokweri.github.io/DeepTile/guides/reproduce-results/) regenerates these
 measurements on your own board.
 
 ### Width and workload
@@ -195,8 +195,8 @@ make -C scripts model-export \
 The verified package is published under
 `build/models/resnet50/imagenet1k/int8-tqt/v1.0.0/`. Fetching is explicit;
 export never downloads a checkpoint implicitly. See
-[Installation](docs/getting-started/installation.md) for the Python environment
-and [Bring your own model](docs/guides/bring-your-own-model.md) for the
+[Installation](https://mokweri.github.io/DeepTile/getting-started/installation/) for the Python environment
+and [Bring your own model](https://mokweri.github.io/DeepTile/guides/bring-your-own-model/) for the
 release IDs of all five validated networks.
 
 ### 4. Run the HLS correctness gate
@@ -249,7 +249,7 @@ On the board, a packaged single-input reference run has the following form:
 
 Dataset evaluation uses the same executable with `--dataset`, `--topk`, and a
 prepared ImageNet-style directory. See
-[Evaluate on a dataset](docs/guides/evaluate-on-a-dataset.md). For MobileNetV2 and
+[Evaluate on a dataset](https://mokweri.github.io/DeepTile/guides/evaluate-on-a-dataset/). For MobileNetV2 and
 EfficientNet-Lite0, set `DEEPTILE_FUSE_DW=1` to run their depthwise layers
 fused.
 
@@ -273,8 +273,8 @@ compiled on the board when it is run.
 
 ## Documentation
 
-The full documentation is built with MkDocs from [`docs/`](docs/). Preview it
-locally with:
+Read the full [documentation](https://mokweri.github.io/DeepTile/). The site
+is built with MkDocs from [`docs/`](docs/). Preview it locally with:
 
 ```bash
 make -C scripts docs-venv    # once
@@ -283,20 +283,20 @@ make -C scripts docs-serve   # then open http://127.0.0.1:8000
 
 Key pages:
 
-- [How DeepTile works](docs/concepts/how-it-works.md) -- the pipeline, the three
+- [How DeepTile works](https://mokweri.github.io/DeepTile/concepts/how-it-works/) -- the pipeline, the three
   artifact contracts, and what changes when you switch networks.
-- [Quick start](docs/getting-started/quick-start.md) -- from a clone to a model
+- [Quick start](https://mokweri.github.io/DeepTile/getting-started/quick-start/) -- from a clone to a model
   running on the ZCU104.
-- [Bring your own model](docs/guides/bring-your-own-model.md) -- released
+- [Bring your own model](https://mokweri.github.io/DeepTile/guides/bring-your-own-model/) -- released
   models, FixQuant export, and other quantizers.
-- [Build a hardware target](docs/guides/build-a-target.md) -- configurations and
+- [Build a hardware target](https://mokweri.github.io/DeepTile/guides/build-a-target/) -- configurations and
   the hardware build.
-- [Reproduce the evaluation](docs/guides/reproduce-results.md) -- rebuild the
+- [Reproduce the evaluation](https://mokweri.github.io/DeepTile/guides/reproduce-results/) -- rebuild the
   models and hardware targets, then repeat the benchmark runs.
-- [Graph handoff specification](docs/reference/graph-handoff-spec.md) and
-  [TargetPackage specification](docs/reference/target-package.md) -- the model
+- [Graph handoff specification](https://mokweri.github.io/DeepTile/reference/graph-handoff-spec/) and
+  [TargetPackage specification](https://mokweri.github.io/DeepTile/reference/target-package/) -- the model
   and target contracts.
-- [Command reference](docs/reference/commands.md) -- make targets, host options,
+- [Command reference](https://mokweri.github.io/DeepTile/reference/commands/) -- make targets, host options,
   and tools.
 
 ## License
