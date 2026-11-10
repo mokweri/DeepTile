@@ -20,6 +20,8 @@ compilation, not a new FPGA build.
 [![Documentation](https://img.shields.io/badge/Docs-DeepTile-59636E)](https://mokweri.github.io/DeepTile/)
 &nbsp;
 [![Platform: ZCU104](https://img.shields.io/badge/Platform-ZCU104-C2701A)](https://www.xilinx.com/products/boards-and-kits/zcu104.html)
+&nbsp;
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24113454.svg)](https://doi.org/10.5281/zenodo.24113454)
 
 </div>
 
@@ -60,6 +62,11 @@ reproducible:
 | **ModelPackage** | Quantized graph, parameters, and integer reference tensors for validation |
 | **TargetPackage** | Matching host executable, FPGA binary, boot image, and hardware configuration |
 | **RunRecord** | Model and target identities, evaluation settings, validation or accuracy results, and timing |
+
+The checkpoints of the five evaluated models, the run records behind the
+published v2.0.1 results, and the measurement scripts of the AMD DPU and
+cgra4ml baselines are archived on Zenodo, with a SHA-256 digest for every file:
+[10.5281/zenodo.24112625](https://doi.org/10.5281/zenodo.24112625).
 
 ## Architecture
 
@@ -307,15 +314,32 @@ history.
 
 ## Citation
 
-If you use DeepTile in your work, cite the software repository:
+If you use DeepTile in your work, cite the software. Each release is archived
+on Zenodo; [10.5281/zenodo.24113454](https://doi.org/10.5281/zenodo.24113454)
+always resolves to the latest one, and v2.0.1 is
+[10.5281/zenodo.24113455](https://doi.org/10.5281/zenodo.24113455).
 
 ```bibtex
-@misc{mogaka2026deeptile,
-  author = {Mogaka, Obed M. and Forsberg, H{\aa}kan and Daneshtalab, Masoud},
-  title  = {{DeepTile}},
-  year   = {2026},
-  howpublished = {GitHub repository},
-  url    = {https://github.com/mokweri/DeepTile}
+@software{mogaka2026deeptile,
+  author    = {Mogaka, Obed M. and Forsberg, H{\aa}kan and Daneshtalab, Masoud},
+  title     = {{DeepTile}: Reusable {INT8} {CNN} Inference with Fixed {FPGA}
+               Hardware and Target-Aware Software},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.24113454},
+  url       = {https://github.com/mokweri/DeepTile}
+}
+```
+
+The models, run records and baseline scripts of v2.0.1:
+
+```bibtex
+@dataset{mogaka2026deeptileartifacts,
+  author    = {Mogaka, Obed M. and Forsberg, H{\aa}kan and Daneshtalab, Masoud},
+  title     = {{DeepTile} v2.0.1: Quantized Models, Run Records and Baseline Scripts},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.24112625}
 }
 ```
 
